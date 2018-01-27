@@ -1,0 +1,60 @@
+Misc notes for V1.1(Rev A) card
+
+Story triggers:
+Generator - 00026B
+Reboot Computer - 00026D
+Motion Sensors - 000287
+Ship Communications - 001E15
+Mainland Communications - 000275
+Ship Cleared of Dinosaurs - 001E17
+Security Level 1 - 000265
+Security Level 2 - 000267
+Seal Visitor Center - 00026F
+Nerve Gas (1 = obtained, 2 = deployed) - 001E0F
+- Note: The game only checks for a non-zero value before letting you destroy the raptor pen
+Enable Ship Communications - 000270
+Enable Mainland Communications - 000274
+Current Egg Count - 000E0F
+All Eggs Obtained - 000289
+- Triggers when Current Egg Count goes from 1 to 0
+
+IDs:
+Robert Muldoon's ID - 000257
+Ray Arnold's ID - 00025D
+John Hammond's ID - 000253
+Ellie Sattler's ID - 000255
+Dr. Wu's ID - 000261
+Dennis Nedry's ID - 00025F
+Alan Grant's ID - 000258
+
+Player:
+Alan X Position - 002476
+Alan Y Position - 002C4A
+Jumping speed - 005B42
+Weapon Type 1st Slot - 00028D
+Weapon Type 2nd Slot - 000297
+Weapon Ammo Count 1st Slot - 00028B
+Weapon Ammo Count 2nd Slot - 000295
+Related to Move Speed - 002861
+Is Moving (boolean) - 000B26
+Health - 0002EB
+- 0 is full health, 255 or FF is death
+
+Gates:
+- Non-zero value means unlocked. You can leave all 3 unlocked
+Gate 1 - 00024D
+Gate 2 - 00024F
+Gate 3 - 000251
+
+Ship:
+Floor 1 Count: 001E20
+Floor 2 Count: 001E2D
+Floor 3 Count: 001E2E
+Floor 4 Count: 001E2F
+Floor 5 Count: 001E30
+Floor 1 Clear: 001E3B
+Floor 2 Clear: 001E48
+Floor 3 Clear: 001E49
+Floor 4 Clear: 001E4A
+Floor 5 Clear: 001E4B
+Current Floor UI Message: 0017A3
