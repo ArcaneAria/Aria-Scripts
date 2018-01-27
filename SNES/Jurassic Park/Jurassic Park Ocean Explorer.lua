@@ -18,6 +18,10 @@
 -- jumping into the trees.
 --
 -- Ocean map data is saved in oceanMap.lua.
+
+-- A text-based map representation is saved to ocean.txt. If you turn off
+-- word wrapping on your editor, you can see what the map looks like
+-- in ASCII art format.
 ---------------------------
 
 local xPosAddr = 0x002476
