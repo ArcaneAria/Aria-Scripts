@@ -13,7 +13,7 @@ function LiveSplitUtils.setup()
 	connection = io.open("//./pipe/LiveSplit", 'a')
 	
 	if not connection then
-		error("\nFailed to open LiveSplit named pipe!" ..
+		error("\nFailed to open LiveSplit named pipe!\n" ..
 			"Please make sure LiveSplit is running and reload the script.")
 	end
 	
