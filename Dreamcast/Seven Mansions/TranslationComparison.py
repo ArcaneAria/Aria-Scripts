@@ -2,12 +2,13 @@ import codecs
 import re
 
 # TODO: Pass these in instead of hardcoding
-original_filepath = "C:/Users/yagen/Dropbox/Games/Seven Mansions Shared/Original/Y2.CSV"
-translated_filepath = "C:/Users/yagen/Desktop/Seven Mansions/data/Y2.CSV"
+original_filepath = "C:/Users/yagen/Dropbox/Games/Seven Mansions Local/Original/Y3.CSV"
+translated_filepath = "C:/Users/yagen/Dropbox/Games/Seven Mansions Local/Translation/Y3.CSV"
 
 pointer_regex = re.compile("&.|$.")
 slash_regex = re.compile("\\\[^n]")
 highlight_regex = re.compile("\$\d(.*?)\$\d")
+highlight_start_regex = re.compile("(.+?)\$[0-6]")
 reina_pointer_regex = re.compile("(.*)&d")
 errors = 0
 
@@ -66,7 +67,24 @@ def check_for_highlight_spacing(translated_line, line_number):
 
     for match in match_highlights:
         if len(match) % 2 == 1:
-            print("Odd # of chars found between $s on line " + str(line_number + 1))
+            print("Between $ is odd on line " + str(line_number + 1))
+            errors += 1
+
+
+def check_for_highlight_start_spacing(translated_line, line_number):
+    """
+    Checks that every $ highlight sequence starts on an even byte. The original Japanese characters
+    take 2 bytes each, so the code won't find a $ if it's not an even byte
+    :param translated_line:
+    :param line_number:
+    :return:
+    """
+    global errors
+    match_highlights = highlight_start_regex.findall(translated_line)
+
+    for match in match_highlights:
+        if len(match) % 2 == 1:
+            print("$ start spacing is odd on line " + str(line_number + 1))
             errors += 1
 
 
@@ -83,7 +101,25 @@ def check_for_reina_pointer_spacing(translated_line, line_number):
 
     for match in match_reina:
         if len(match) % 2 == 1:
-            print("Odd # of chars found before &d on line " + str(line_number + 1))
+            print("&d start spacing is odd on line " + str(line_number + 1))
+            errors += 1
+
+
+def check_for_line_length(translated_line, line_number):
+    """
+    The screen can show a maximum of 23 characters per line. Check for any lines that are longer than that.
+    :param translated_line: Current line from the translated script
+    :param line_number: Current line number for output
+    :return:
+    """
+    global errors
+    lines = re.split("\\\\n|&\w", translated_line)
+
+    for line in lines:
+        line = re.sub("\$\d", "", line).strip()
+        if len(line) > 23:
+            print("Too long text on line " + str(line_number + 1))
+            print("-- " + line)
             errors += 1
 
 
@@ -99,6 +135,8 @@ with codecs.open(original_filepath, encoding="shift-jis") as original_file:
             check_for_pointer_mismatches(translated_line, original_line, line_number)
             check_for_highlight_spacing(translated_line, line_number)
             check_for_reina_pointer_spacing(translated_line, line_number)
+            check_for_highlight_start_spacing(translated_line, line_number)
+            check_for_line_length(translated_line, line_number)
 
         print("Complete!")
         print("Total errors encountered: " + str(errors))
