@@ -72,6 +72,13 @@ def check_for_highlight_spacing(translated_line, line_number):
 
 
 def check_for_highlight_start_spacing(translated_line, line_number):
+    """
+    Checks that every $ highlight sequence starts on an even byte. The original Japanese characters
+    take 2 bytes each, so the code won't find a $ if it's not an even byte
+    :param translated_line:
+    :param line_number:
+    :return:
+    """
     global errors
     match_highlights = highlight_start_regex.findall(translated_line)
 
